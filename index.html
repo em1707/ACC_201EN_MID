@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Partnership & Corporation Accounting — Complete Interactive Platform & Study Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Partnership & Corporation Accounting — Interactive Mobile Platform & Study Guide</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
-       1. GLOBAL THEME, CSS VARIABLES & RESET
+       1. VARIABLES, PALETTE & MOBILE-FIRST BASE STYLES
        ========================================================================== */
     :root {
-      --primary: #1e3a8a;          /* Classic Deep Accounting Navy */
-      --primary-light: #3b82f6;
-      --primary-dark: #172554;
-      --secondary: #0d9488;        /* Teal for accents & balances */
-      --accent-gold: #d97706;      /* Amber gold for highlights */
+      --primary: #1e3a8a;          /* Deep Accounting Navy */
+      --primary-light: #2563eb;
+      --primary-dark: #0f172a;
+      --secondary: #0d9488;        /* Teal for balances & metrics */
+      --accent-gold: #d97706;      /* Amber gold for PDF & highlights */
       --bg-page: #f8fafc;
       --bg-card: #ffffff;
       --bg-subtle: #f1f5f9;
@@ -31,9 +32,9 @@
       --danger-bg: #fef2f2;
       --warning: #b45309;
       --warning-bg: #fffbeb;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 8px;
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-serif: 'Merriweather', Georgia, serif;
       --font-mono: 'Fira Code', Menlo, Monaco, Consolas, monospace;
@@ -43,107 +44,173 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: var(--font-sans);
       background-color: var(--bg-page);
       color: var(--text-main);
-      line-height: 1.65;
+      line-height: 1.6;
       font-size: 15px;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     /* ==========================================================================
-       2. APP LAYOUT: HEADER, SIDEBAR, MAIN CONTENT
+       2. RESPONSIVE HEADER & MOBILE HAMBURGER NAVIGATION
        ========================================================================== */
     .app-header {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
       color: white;
-      padding: 1.25rem 2rem;
+      padding: 0.75rem 1rem;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: var(--shadow-md);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      justify-content: space-between;
+      gap: 0.5rem;
     }
 
-    .brand-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
+    .brand-wrap {
       display: flex;
       align-items: center;
       gap: 0.6rem;
+      min-width: 0;
     }
 
-    .brand-badge {
-      background-color: rgba(255, 255, 255, 0.2);
-      font-size: 0.75rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      font-weight: 600;
+    .menu-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      min-height: 40px;
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.4rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.4rem;
-      padding: 0.55rem 1rem;
+      padding: 0.5rem 0.85rem;
       font-size: 0.85rem;
       font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
       border: 1px solid transparent;
       text-decoration: none;
+      min-height: 40px;
     }
 
     .btn-pdf {
       background-color: var(--accent-gold);
       color: white;
-      box-shadow: var(--shadow-sm);
     }
-    .btn-pdf:hover {
-      background-color: #b45309;
-      transform: translateY(-1px);
-    }
+    .btn-pdf:hover { background-color: #b45309; }
 
     .btn-outline {
       background-color: transparent;
       border-color: rgba(255, 255, 255, 0.4);
       color: white;
     }
-    .btn-outline:hover {
-      background-color: rgba(255, 255, 255, 0.15);
+
+    /* ==========================================================================
+       3. OFF-CANVAS SLIDE-OUT DRAWER (MOBILE) & DESKTOP SIDEBAR
+       ========================================================================== */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .app-container {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      min-height: calc(100vh - 75px);
-    }
-
-    /* Sidebar Navigation */
     .app-sidebar {
       background-color: var(--bg-card);
       border-right: 1px solid var(--border);
-      padding: 1.5rem 1rem;
+      padding: 1.25rem 0.85rem;
       overflow-y: auto;
-      height: calc(100vh - 75px);
-      position: sticky;
-      top: 75px;
+      z-index: 1100;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Mobile Sidebar Drawer */
+    @media (max-width: 991px) {
+      .app-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 290px;
+        transform: translateX(-100%);
+        box-shadow: 2px 0 12px rgba(0,0,0,0.25);
+      }
+      .app-sidebar.open {
+        transform: translateX(0);
+      }
+    }
+
+    /* Desktop Grid Layout */
+    @media (min-width: 992px) {
+      .menu-toggle-btn {
+        display: none;
+      }
+      .app-container {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        min-height: calc(100vh - 60px);
+      }
+      .app-sidebar {
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+        transform: none !important;
+      }
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    @media (min-width: 992px) {
+      .drawer-header { display: none; }
     }
 
     .sidebar-section-title {
@@ -152,37 +219,25 @@
       font-weight: 700;
       color: var(--text-muted);
       letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
-      padding-left: 0.5rem;
+      margin: 1.25rem 0 0.5rem 0.4rem;
     }
 
-    .nav-list {
-      list-style: none;
-      margin-bottom: 1.5rem;
-    }
-
-    .nav-item {
-      margin-bottom: 0.25rem;
-    }
+    .nav-list { list-style: none; }
+    .nav-item { margin-bottom: 0.25rem; }
 
     .nav-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.6rem 0.75rem;
+      padding: 0.65rem 0.75rem;
       font-size: 0.88rem;
       color: var(--text-main);
       text-decoration: none;
       border-radius: 6px;
       font-weight: 500;
-      transition: all 0.15s;
+      min-height: 42px;
     }
-
-    .nav-link:hover {
-      background-color: var(--bg-subtle);
-      color: var(--primary);
-    }
-
+    .nav-link:hover { background-color: var(--bg-subtle); color: var(--primary); }
     .nav-link.active {
       background-color: #eff6ff;
       color: var(--primary);
@@ -194,45 +249,30 @@
       font-size: 0.7rem;
       background-color: var(--bg-subtle);
       padding: 0.15rem 0.45rem;
-      border-radius: 12px;
+      border-radius: 10px;
       color: var(--text-muted);
     }
 
-    /* Main Content Area */
+    /* ==========================================================================
+       4. MAIN RESPONSIVE CONTENT & MOBILE SPACING
+       ========================================================================== */
     .app-content {
-      padding: 2rem 3rem;
-      max-width: 1200px;
+      padding: 1.25rem 1rem;
+      max-width: 1100px;
       margin: 0 auto;
       width: 100%;
     }
+    @media (min-width: 768px) {
+      .app-content { padding: 2rem; }
+    }
 
-    /* Progress Tracker Card */
     .progress-banner {
-      background: linear-gradient(to right, #ffffff, #f8fafc);
+      background: white;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem 1.75rem;
-      margin-bottom: 2rem;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
       box-shadow: var(--shadow-sm);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-    }
-
-    .progress-bar-container {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .progress-bar-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: var(--text-muted);
     }
 
     .progress-bar-track {
@@ -240,103 +280,110 @@
       background-color: #e2e8f0;
       border-radius: 4px;
       overflow: hidden;
+      margin-top: 0.4rem;
     }
-
     .progress-bar-fill {
       height: 100%;
       background: linear-gradient(to right, var(--secondary), var(--primary-light));
-      width: 25%;
-      transition: width 0.3s ease;
+      width: 100%;
     }
 
-    /* ==========================================================================
-       3. PEDAGOGICAL CONTENT BLOCKS (DEFINITIONS, ALERTS, TABLES)
-       ========================================================================== */
+    /* Card styling */
     .module-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2.25rem;
-      margin-bottom: 2.5rem;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.75rem;
       box-shadow: var(--shadow-sm);
+    }
+    @media (min-width: 768px) {
+      .module-card { padding: 2rem; margin-bottom: 2.25rem; }
     }
 
     .module-card h2 {
-      font-size: 1.55rem;
+      font-size: 1.35rem;
       color: var(--primary-dark);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    @media (min-width: 768px) {
+      .module-card h2 { font-size: 1.6rem; }
     }
 
     .module-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--primary);
-      margin: 1.5rem 0 0.75rem;
+      margin: 1.5rem 0 0.6rem;
       border-bottom: 2px solid #e2e8f0;
       padding-bottom: 0.35rem;
     }
 
     .module-meta {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 1.25rem;
-      display: flex;
-      gap: 1rem;
+      margin-bottom: 1rem;
       font-weight: 500;
     }
 
     .alert-box {
       border-left: 4px solid var(--primary);
       background-color: #f0f7ff;
-      padding: 1rem 1.25rem;
-      border-radius: 0 6px 6px 0;
-      margin: 1.25rem 0;
-      font-size: 0.92rem;
+      padding: 0.85rem 1rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1rem 0;
+      font-size: 0.9rem;
     }
-
-    .alert-box.trap {
-      border-left-color: var(--danger);
-      background-color: var(--danger-bg);
-    }
-
-    .alert-box.rule {
-      border-left-color: var(--secondary);
-      background-color: #f0fdfa;
-    }
+    .alert-box.trap { border-left-color: var(--danger); background-color: var(--danger-bg); }
+    .alert-box.rule { border-left-color: var(--secondary); background-color: #f0fdfa; }
 
     .alert-title {
       font-weight: 700;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
     }
-
     .alert-box.trap .alert-title { color: var(--danger); }
     .alert-box.rule .alert-title { color: var(--secondary); }
 
-    /* Terminology Pill */
-    .term {
-      font-weight: 700;
-      color: var(--primary-dark);
-      border-bottom: 1px dotted var(--primary-light);
-      cursor: help;
+    /* ==========================================================================
+       5. RESPONSIVE TABLES & MOBILE TOUCH-SCROLL
+       ========================================================================== */
+    .table-scroll-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      position: relative;
     }
 
-    /* Accounting Tables & Journal Entries */
+    .table-scroll-hint {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: right;
+      padding: 0.25rem 0.5rem;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-light);
+    }
+    @media (min-width: 768px) {
+      .table-scroll-hint { display: none; }
+    }
+
     .accounting-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1.25rem 0;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
+      min-width: 500px; /* Protects tabular structure from squashing */
     }
 
     .accounting-table th, 
     .accounting-table td {
-      border: 1px solid var(--border);
-      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border-light);
+      padding: 0.55rem 0.7rem;
       text-align: left;
     }
 
@@ -344,35 +391,37 @@
       background-color: #f8fafc;
       color: var(--primary-dark);
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .accounting-table .num {
       text-align: right;
       font-family: var(--font-mono);
-      font-size: 0.85rem;
+      white-space: nowrap;
     }
 
+    /* Journal Entry View */
     .journal-entry {
-      background-color: #ffffff;
+      background: white;
       border: 1px solid var(--border);
       border-radius: 6px;
-      margin: 1.25rem 0;
+      margin: 1rem 0;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .journal-entry table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
+      min-width: 420px;
     }
 
     .journal-entry th {
-      background-color: #f1f5f9;
+      background: #f1f5f9;
       padding: 0.5rem 0.75rem;
       text-align: left;
-      border-bottom: 2px solid var(--border);
       font-weight: 700;
-      color: var(--text-muted);
     }
 
     .journal-entry td {
@@ -381,28 +430,32 @@
     }
 
     .journal-credit {
-      padding-left: 2.25rem !important;
+      padding-left: 1.75rem !important;
     }
-
     .journal-desc {
       font-style: italic;
       color: var(--text-muted);
       font-size: 0.8rem;
-      padding-left: 1.5rem !important;
+      padding-left: 1.25rem !important;
     }
 
-    /* Ledger T-Account Display */
+    /* T-Account Responsive Grid */
     .t-account-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      margin: 1.25rem 0;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin: 1rem 0;
+    }
+    @media (min-width: 768px) {
+      .t-account-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
     }
 
     .t-account {
       border: 2px solid var(--primary-dark);
       background: white;
-      border-radius: 4px;
+      border-radius: 6px;
       overflow: hidden;
     }
 
@@ -411,8 +464,8 @@
       color: white;
       text-align: center;
       font-weight: 700;
-      padding: 0.4rem;
-      font-size: 0.9rem;
+      padding: 0.45rem;
+      font-size: 0.88rem;
     }
 
     .t-account-body {
@@ -423,12 +476,11 @@
     .t-col-dr {
       border-right: 2px solid var(--primary-dark);
       padding: 0.5rem;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
     }
-
     .t-col-cr {
       padding: 0.5rem;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
     }
 
     .t-row {
@@ -436,44 +488,49 @@
       justify-content: space-between;
       margin-bottom: 0.25rem;
       font-family: var(--font-mono);
+      gap: 0.25rem;
     }
 
     /* ==========================================================================
-       4. INTERACTIVE STEP-BY-STEP CALCULATION ENGINE
+       6. MOBILE-FIRST INTERACTIVE TOOLS
        ========================================================================== */
     .calc-tool {
       background-color: #fcfdfe;
       border: 1px solid #bfdbfe;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    /* Horizontal scrollable button bar on mobile */
+    .calc-btn-group {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .calc-btn-group .btn {
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .calc-step {
-      background-color: white;
+      background: white;
       border: 1px solid var(--border-light);
       border-radius: 6px;
-      padding: 1rem;
+      padding: 0.85rem;
       margin-bottom: 0.75rem;
       display: none;
     }
-
-    .calc-step.revealed {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .calc-step.revealed { display: block; }
 
     .step-number {
       font-size: 0.75rem;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--primary-light);
-      letter-spacing: 0.05em;
       margin-bottom: 0.25rem;
     }
 
@@ -481,130 +538,129 @@
       background-color: #1e293b;
       color: #38bdf8;
       font-family: var(--font-mono);
-      padding: 0.65rem 1rem;
+      padding: 0.65rem 0.85rem;
       border-radius: 6px;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       margin: 0.5rem 0;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* ==========================================================================
-       5. INTERACTIVE QUIZ & JOURNAL SIMULATOR
-       ========================================================================== */
+    /* Mobile Responsive Journal Simulator */
+    .je-sim-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .je-sim-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 600px) {
+      .je-sim-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 0.5rem;
+      }
+    }
+
+    .je-inputs-subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      min-height: 44px; /* Touch target */
+    }
+
+    /* Quiz Mobile Styling */
     .quiz-container {
       background-color: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1rem;
+      margin: 1.25rem 0;
     }
 
     .quiz-question {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
       color: var(--primary-dark);
+      line-height: 1.4;
     }
 
     .quiz-options {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .quiz-opt-btn {
       text-align: left;
       background-color: var(--bg-subtle);
       border: 1px solid var(--border);
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 0.85rem;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.15s;
+      font-size: 0.88rem;
+      min-height: 44px;
+      line-height: 1.35;
     }
-
-    .quiz-opt-btn:hover {
-      background-color: #e2e8f0;
-      border-color: #cbd5e1;
-    }
-
-    .quiz-opt-btn.correct {
-      background-color: var(--success-bg);
-      border-color: var(--success);
-      color: var(--success);
-      font-weight: 700;
-    }
-
-    .quiz-opt-btn.incorrect {
-      background-color: var(--danger-bg);
-      border-color: var(--danger);
-      color: var(--danger);
-      font-weight: 700;
-    }
+    .quiz-opt-btn:hover { background-color: #e2e8f0; }
+    .quiz-opt-btn.correct { background-color: var(--success-bg); border-color: var(--success); color: var(--success); font-weight: 700; }
+    .quiz-opt-btn.incorrect { background-color: var(--danger-bg); border-color: var(--danger); color: var(--danger); font-weight: 700; }
 
     .quiz-feedback {
       display: none;
-      padding: 0.85rem;
+      padding: 0.75rem;
       border-radius: 6px;
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    /* Search & Reference Library */
-    .search-bar-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      font-size: 0.95rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      background: #f1f5f9;
+      border-left: 3px solid var(--primary);
+      margin-top: 0.5rem;
     }
 
     /* ==========================================================================
-       6. A4 PRINT & PDF EXPORT STYLES (@media print)
+       7. A4 PRINT & PDF GENERATOR ENGINE
        ========================================================================== */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 15mm 15mm 15mm 15mm;
+        margin: 15mm;
       }
-
       body {
         background: white !important;
         color: black !important;
         font-size: 10pt;
-        line-height: 1.45;
       }
-
-      .app-header, 
-      .app-sidebar, 
-      .progress-banner, 
-      .btn, 
-      .no-print,
-      .calc-btn-group,
-      .interactive-controls {
+      .app-header, .drawer-overlay, .app-sidebar, .menu-toggle-btn, .progress-banner, 
+      .btn, .no-print, .table-scroll-hint, .calc-btn-group {
         display: none !important;
       }
-
-      .app-container {
-        display: block !important;
-      }
-
-      .app-content {
-        padding: 0 !important;
-        max-width: 100% !important;
-      }
-
+      .app-container { display: block !important; }
+      .app-content { padding: 0 !important; max-width: 100% !important; }
       .module-card {
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
-        margin-bottom: 25pt !important;
+        margin-bottom: 20pt !important;
         page-break-inside: avoid;
       }
-
-      /* PDF Cover Page */
       .pdf-cover-page {
         display: flex !important;
         flex-direction: column;
@@ -614,185 +670,124 @@
         text-align: center;
         page-break-after: always;
       }
-
-      .pdf-cover-title {
-        font-size: 26pt;
-        font-weight: 800;
-        color: #172554;
-        margin-bottom: 12pt;
-      }
-
-      .pdf-cover-subtitle {
-        font-size: 14pt;
-        color: #475569;
-        margin-bottom: 30pt;
-      }
-
-      .pdf-cover-badge {
-        font-size: 11pt;
-        border: 2px solid #172554;
-        padding: 6pt 16pt;
-        font-weight: 700;
-      }
-
-      .calc-step {
-        display: block !important;
-        border: 1px solid #ccc !important;
-        margin-bottom: 8pt !important;
-      }
-
-      .quiz-feedback {
-        display: block !important;
-        background-color: #f8f9fa !important;
-        border-left: 3pt solid #172554 !important;
-        margin-top: 6pt !important;
-      }
-
-      .accounting-table th, 
-      .accounting-table td {
-        padding: 4pt 6pt !important;
-        font-size: 8.5pt !important;
-      }
-
-      .formula-display {
-        background-color: #f1f5f9 !important;
-        color: #0f172a !important;
-        border: 1px solid #cbd5e1 !important;
-      }
-
-      h2 {
-        page-break-before: always;
-        font-size: 16pt !important;
-        margin-top: 15pt !important;
-      }
-
-      h3 {
-        font-size: 12pt !important;
-        margin-top: 10pt !important;
-      }
+      .calc-step { display: block !important; border: 1px solid #ccc !important; }
+      .quiz-feedback { display: block !important; }
+      h2 { page-break-before: always; }
     }
 
-    .pdf-cover-page {
-      display: none; /* Only visible in print / PDF mode */
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 900px) {
-      .app-container {
-        grid-template-columns: 1fr;
-      }
-      .app-sidebar {
-        display: none;
-      }
-      .app-content {
-        padding: 1.25rem;
-      }
-    }
+    .pdf-cover-page { display: none; }
   </style>
 </head>
 <body>
 
   <!-- ==========================================================================
-       APPLICATION HEADER
+       TOP APP BAR WITH TOUCH CONTROLS
        ========================================================================== -->
   <header class="app-header">
-    <div class="brand-title">
-      <span>🏛️ Partnership & Corporation Accounting</span>
-      <span class="brand-badge">Full Interactive Course</span>
+    <div class="brand-wrap">
+      <button class="menu-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleDrawer()">
+        ☰
+      </button>
+      <div class="brand-title">🏛️ Accounting Mastery</div>
     </div>
     <div class="header-actions">
       <button class="btn btn-pdf" onclick="window.print()">
-        📄 Export Complete A4 PDF Study Guide
-      </button>
-      <button class="btn btn-outline" onclick="jumpToModule('m-reference')">
-        🔍 Reference Library
+        📄 <span class="no-mobile-text">Export</span> A4 PDF
       </button>
     </div>
   </header>
 
+  <!-- Mobile Off-Canvas Drawer Backdrop -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
+
   <div class="app-container">
     <!-- ==========================================================================
-         SIDEBAR NAVIGATION
+         OFF-CANVAS & DESKTOP SIDEBAR NAVIGATION
          ========================================================================== -->
-    <aside class="app-sidebar no-print">
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="drawer-header">
+        <span style="font-weight: 700; color: var(--primary);">Course Directory</span>
+        <button onclick="toggleDrawer()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; padding: 0.3rem;">✕</button>
+      </div>
+
       <div class="sidebar-section-title">Course Modules</div>
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#m-foundations" class="nav-link active" onclick="activateNav(this)">
-            <span>1. Accounting Foundations</span>
-            <span class="nav-badge">Zero</span>
+          <a href="#m-foundations" class="nav-link active" onclick="handleNavClick(this)">
+            <span>1. Foundations Zero</span>
+            <span class="nav-badge">Basics</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-nature" class="nav-link" onclick="activateNav(this)">
-            <span>2. Nature & Characteristics</span>
+          <a href="#m-nature" class="nav-link" onclick="handleNavClick(this)">
+            <span>2. Nature & Law</span>
             <span class="nav-badge">Legal</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-formation" class="nav-link" onclick="activateNav(this)">
-            <span>3. Partnership Formation</span>
-            <span class="nav-badge">Valuation</span>
+          <a href="#m-formation" class="nav-link" onclick="handleNavClick(this)">
+            <span>3. Formation (New)</span>
+            <span class="nav-badge">Assets</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-soleprop" class="nav-link" onclick="activateNav(this)">
+          <a href="#m-soleprop" class="nav-link" onclick="handleNavClick(this)">
             <span>4. Sole Proprietor to Firm</span>
             <span class="nav-badge">Books</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-operations" class="nav-link" onclick="activateNav(this)">
+          <a href="#m-operations" class="nav-link" onclick="handleNavClick(this)">
             <span>5. Profit & Loss Allocation</span>
-            <span class="nav-badge">P&L Appr</span>
+            <span class="nav-badge">P&L</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-commissions" class="nav-link" onclick="activateNav(this)">
+          <a href="#m-commissions" class="nav-link" onclick="handleNavClick(this)">
             <span>6. Managerial Commissions</span>
-            <span class="nav-badge">Math</span>
+            <span class="nav-badge">Formulas</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-cap-systems" class="nav-link" onclick="activateNav(this)">
+          <a href="#m-cap-systems" class="nav-link" onclick="handleNavClick(this)">
             <span>7. Fixed vs Fluctuating</span>
             <span class="nav-badge">Ledgers</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-dissolution" class="nav-link" onclick="activateNav(this)">
-            <span>8. Dissolution (Bonus/Reval)</span>
+          <a href="#m-dissolution" class="nav-link" onclick="handleNavClick(this)">
+            <span>8. Dissolution (Bonus)</span>
             <span class="nav-badge">Advanced</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-liquidation" class="nav-link" onclick="activateNav(this)">
-            <span>9. Partnership Liquidation</span>
-            <span class="nav-badge">Winding Up</span>
+          <a href="#m-liquidation" class="nav-link" onclick="handleNavClick(this)">
+            <span>9. Liquidation (Winding Up)</span>
+            <span class="nav-badge">Cash</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-corporation" class="nav-link" onclick="activateNav(this)">
-            <span>10. Corporation Accounting</span>
-            <span class="nav-badge">Equity</span>
+          <a href="#m-corporation" class="nav-link" onclick="handleNavClick(this)">
+            <span>10. Corporation Equity</span>
+            <span class="nav-badge">Shares</span>
           </a>
         </li>
       </ul>
 
-      <div class="sidebar-section-title">Tools & Revision</div>
+      <div class="sidebar-section-title">Interactive Training</div>
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#m-journal-trainer" class="nav-link" onclick="activateNav(this)">
-            <span>✍️ Journal Entry Trainer</span>
+          <a href="#m-journal-trainer" class="nav-link" onclick="handleNavClick(this)">
+            <span>✍️ Journal Simulator</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-quiz-station" class="nav-link" onclick="activateNav(this)">
-            <span>🎯 Practice & Exam Station</span>
+          <a href="#m-quiz-station" class="nav-link" onclick="handleNavClick(this)">
+            <span>🎯 Practice & Quizzes</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#m-reference" class="nav-link" onclick="activateNav(this)">
+          <a href="#m-reference" class="nav-link" onclick="handleNavClick(this)">
             <span>📚 Glossary & Formulas</span>
           </a>
         </li>
@@ -804,468 +799,261 @@
          ========================================================================== -->
     <main class="app-content">
 
-      <!-- Printable A4 Cover Page (Included in PDF Printout) -->
+      <!-- Printable Cover Page (PDF Only) -->
       <div class="pdf-cover-page">
-        <div style="font-size: 40pt; margin-bottom: 10pt;">🏛️</div>
-        <h1 class="pdf-cover-title">PARTNERSHIP & CORPORATION<br>ACCOUNTING</h1>
-        <p class="pdf-cover-subtitle">Complete Official University Study Guide & Practice Manual</p>
-        <div class="pdf-cover-badge">COMPREHENSIVE ZERO-TO-MASTERY EDITION — A4 FORMAT</div>
-        <p style="margin-top: 35pt; color: #64748b; font-size: 10pt;">
-          Official Terminology Preserved • All Worked Illustrations • Journal Entries • Step-by-Step Solutions
-        </p>
+        <div style="font-size: 36pt; margin-bottom: 8pt;">🏛️</div>
+        <h1 style="font-size: 24pt; font-weight: 800; color: #0f172a;">PARTNERSHIP & CORPORATION ACCOUNTING</h1>
+        <p style="font-size: 13pt; color: #475569; margin: 12pt 0 25pt;">Official University Study Guide & Interactive Practice Manual</p>
+        <div style="font-size: 10pt; border: 2px solid #0f172a; padding: 6pt 16pt; font-weight: 700;">A4 PRINTABLE EDITION</div>
       </div>
 
-      <!-- Live Course Progress Header -->
+      <!-- Live Mobile Progress Banner -->
       <section class="progress-banner no-print">
-        <div class="progress-bar-container">
-          <div class="progress-bar-label">
-            <span>Overall Course Progress</span>
-            <span id="progress-percent-text">100% Comprehensive Content Loaded</span>
-          </div>
-          <div class="progress-bar-track">
-            <div class="progress-bar-fill" style="width: 100%;"></div>
-          </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">
+          <span>Course Completion</span>
+          <span>100% Comprehensive</span>
         </div>
-        <div>
-          <button class="btn btn-pdf" onclick="window.print()">
-            🖨️ Download / Print A4 Guide
-          </button>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill"></div>
         </div>
       </section>
 
       <!-- ====================================================================
-           MODULE 1: ACCOUNTING FOUNDATIONS FROM ABSOLUTE ZERO
+           MODULE 1: ACCOUNTING FOUNDATIONS FROM ZERO
            ==================================================================== -->
       <article id="m-foundations" class="module-card">
         <h2>Module 1: Accounting Foundations from Absolute Zero</h2>
-        <div class="module-meta">
-          <span>Source: Revision on Accounting Principles</span> • <span>Prerequisite: None</span>
-        </div>
+        <div class="module-meta">Source: Principles Revision • Prerequisite: None</div>
 
-        <p>If you have never studied accounting before, start here. Accounting is the language of business. Every financial event is recorded in specific accounts using a double-entry rule.</p>
+        <p>Accounting tracks business value using equal double-entry transactions.</p>
 
         <div class="alert-box rule">
           <div class="alert-title">⚖️ The Fundamental Accounting Equation</div>
-          $$\text{Assets} = \text{Liabilities} + \text{Owner's Equity}$$
-          In a partnership, Owner's Equity is expanded to represent multiple partners' capital accounts:
-          $$\text{Assets} = \text{Liabilities} + \sum (\text{Partner Capital Accounts})$$
+          $$\text{Assets} = \text{Liabilities} + \sum (\text{Partner Capital})$$
         </div>
 
         <h3>Debit vs. Credit Nature of Accounts</h3>
-        <p>In accounting, <strong>Debit</strong> (Dr) simply means the <em>left side</em> of an account, and <strong>Credit</strong> (Cr) means the <em>right side</em>. Accounts naturally increase on their home side:</p>
+        <p><strong>Debit (Dr)</strong> = Left side. <strong>Credit (Cr)</strong> = Right side.</p>
 
-        <table class="accounting-table">
-          <thead>
-            <tr>
-              <th>Account Category</th>
-              <th>Normal Balance</th>
-              <th>To Increase (+)</th>
-              <th>To Decrease (-)</th>
-              <th>Examples in Course</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Assets</strong></td>
-              <td>Debit</td>
-              <td>Debit</td>
-              <td>Credit</td>
-              <td>Cash, Accounts Receivable, Inventory, Equipment, Furniture</td>
-            </tr>
-            <tr>
-              <td><strong>Expenses & Losses</strong></td>
-              <td>Debit</td>
-              <td>Debit</td>
-              <td>Credit</td>
-              <td>Depreciation Expense, Electricity, Salaries, Loss on Realization</td>
-            </tr>
-            <tr>
-              <td><strong>Drawings (Withdrawals)</strong></td>
-              <td>Debit</td>
-              <td>Debit</td>
-              <td>Credit</td>
-              <td>Drawings Account (represents personal withdrawals by partners)</td>
-            </tr>
-            <tr>
-              <td><strong>Liabilities</strong></td>
-              <td>Credit</td>
-              <td>Credit</td>
-              <td>Debit</td>
-              <td>Accounts Payable, Notes Payable, Partner Loans Payable</td>
-            </tr>
-            <tr>
-              <td><strong>Capital / Equity</strong></td>
-              <td>Credit</td>
-              <td>Credit</td>
-              <td>Debit</td>
-              <td>Ahmad Capital, Dina Capital, Common Stock, Retained Earnings</td>
-            </tr>
-            <tr>
-              <td><strong>Revenues & Profits</strong></td>
-              <td>Credit</td>
-              <td>Credit</td>
-              <td>Debit</td>
-              <td>Sales Revenue, Net Profit, Service Income</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="alert-box trap">
-          <div class="alert-title">⚠️ Exam Trap: Profit vs. Revenue vs. Drawings</div>
-          <ul>
-            <li><strong>Revenue:</strong> The total gross money earned from delivering goods or services (e.g., $\$100,000$ in sales).</li>
-            <li><strong>Profit (Net Income):</strong> The net amount left after deducting all expenses from revenue ($\text{Profit} = \text{Revenue} - \text{Expenses}$).</li>
-            <li><strong>Withdrawal / Drawings:</strong> Cash or assets taken out of the business by partners for personal use. A drawing is <em>not</em> a business expense; it reduces partner equity.</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- ====================================================================
-           MODULE 2: NATURE AND CHARACTERISTICS OF A PARTNERSHIP
-           ==================================================================== -->
-      <article id="m-nature" class="module-card">
-        <h2>Module 2: Nature, Legal Definitions & Characteristics</h2>
-        <div class="module-meta">
-          <span>Source: Definitions of Partnership & Characteristics</span>
-        </div>
-
-        <p>A partnership is formed when two or more persons unite their money, property, or skills to operate a business together.</p>
-
-        <h3>Official Legal Definitions</h3>
-        <ol style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
-          <li><em>"By the contract of partnership, two or more persons bind themselves to contribute money, property, or industry to a common fund with the intention of dividing the profits among themselves. Two or more persons may also form a partnership for the exercise of a profession."</em></li>
-          <li><em>"An association of two or more persons to carry on as co-owners of a business for profit."</em></li>
-          <li><em>"A joint undertaking to share in the profit and loss."</em></li>
-          <li><em>"A legal relation based upon the express or implied agreement of two or more competent persons whereby they unite their property, labor or skill in carrying on some lawful business as principals for their joint profit."</em></li>
-        </ol>
-
-        <h3>The 8 Core Characteristics</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1rem 0;">
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>1. Ease of Formation</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Formed by mere mutual agreement without elaborate corporate charters.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>2. Separate Legal Personality</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">The firm has a distinct identity separate from the personal affairs of each partner.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>3. Mutual Agency</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Any partner can bind the partnership to business contracts within normal scope.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>4. Unlimited Liability</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">General partners are personally liable for unpaid firm debts using their personal assets.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>5. Co-ownership of Property</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Assets invested become joint partnership property, not individual property.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>6. Co-ownership of Profits</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">All partners share profits and losses according to their partnership agreement.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>7. Limited Life</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Admission, withdrawal, insolvency, or death of a partner dissolves the legal contract.</p>
-          </div>
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 6px;">
-            <strong>8. Consensual Transfer</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">A partner cannot transfer ownership to an outsider without unanimous consent.</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- ====================================================================
-           MODULE 3: PARTNERSHIP FORMATION (NEW BUSINESS)
-           ==================================================================== -->
-      <article id="m-formation" class="module-card">
-        <h2>Module 3: Partnership Formation (Brand New Firm)</h2>
-        <div class="module-meta">
-          <span>Source: Scenarios 1: Assumptions 1, 2, 3 & Golden Co Example</span>
-        </div>
-
-        <p>When partners form a brand-new firm, they can contribute cash, non-cash property, or special services (industry).</p>
-
-        <div class="alert-box rule">
-          <div class="alert-title">📌 The 3 Cardinal Rules of Partnership Formation</div>
-          <ol style="margin-left: 1.25rem;">
-            <li><strong>Agreed Value / Fair Market Value:</strong> Non-cash assets must be recorded at their fair market value or agreed value at the date of contribution, <em>never</em> at historical cost.</li>
-            <li><strong>NO Accumulated Depreciation Carried Forward:</strong> Accumulated depreciation from previous ownership is discarded. The new partnership records property at its agreed net value as the new historical cost.</li>
-            <li><strong>Allowance for Uncollectible Accounts IS Carried Forward:</strong> Accounts Receivable is entered at gross face value, and the agreed Allowance for Doubtful Accounts is credited to preserve customer records and show net realizable value.</li>
-          </ol>
-        </div>
-
-        <h3>Scenario 1A: Equal Cash Contributions</h3>
-        <p><em>Illustration:</em> Ahmad and Tarek each invest $500,000 cash for equal capital.</p>
-        <div class="journal-entry">
-          <table>
+        <div class="table-scroll-wrapper">
+          <span class="table-scroll-hint">Swipe ↔ to view columns</span>
+          <table class="accounting-table">
             <thead>
-              <tr><th>Account Title</th><th style="width: 100px;">Dr ($)</th><th style="width: 100px;">Cr ($)</th></tr>
+              <tr>
+                <th>Account Type</th>
+                <th>Normal Balance</th>
+                <th>Increase</th>
+                <th>Decrease</th>
+                <th>Examples in Course</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>Cash</td><td>1,000,000</td><td></td></tr>
-              <tr><td class="journal-credit">Ahmad, Capital</td><td></td><td>500,000</td></tr>
-              <tr><td class="journal-credit">Tarek, Capital</td><td></td><td>500,000</td></tr>
-              <tr><td colspan="3" class="journal-desc">(To record initial equal cash investment)</td></tr>
+              <tr>
+                <td><strong>Assets</strong></td>
+                <td>Debit</td>
+                <td>Debit</td>
+                <td>Credit</td>
+                <td>Cash, Accounts Receivable, Inventory, Equipment</td>
+              </tr>
+              <tr>
+                <td><strong>Expenses / Losses</strong></td>
+                <td>Debit</td>
+                <td>Debit</td>
+                <td>Credit</td>
+                <td>Depreciation, Salaries Expense, Loss on Realization</td>
+              </tr>
+              <tr>
+                <td><strong>Drawings (Withdrawals)</strong></td>
+                <td>Debit</td>
+                <td>Debit</td>
+                <td>Credit</td>
+                <td>Partner Drawings (contra-equity)</td>
+              </tr>
+              <tr>
+                <td><strong>Liabilities</strong></td>
+                <td>Credit</td>
+                <td>Credit</td>
+                <td>Debit</td>
+                <td>Accounts Payable, Partner Loans Payable</td>
+              </tr>
+              <tr>
+                <td><strong>Capital / Equity</strong></td>
+                <td>Credit</td>
+                <td>Credit</td>
+                <td>Debit</td>
+                <td>Ahmad Capital, Dina Capital, Common Stock</td>
+              </tr>
+              <tr>
+                <td><strong>Revenues & Profits</strong></td>
+                <td>Credit</td>
+                <td>Credit</td>
+                <td>Debit</td>
+                <td>Net Profit, Sales Revenue</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <h3>Scenario 1B: Fractional Capital Interest</h3>
-        <p><em>Illustration:</em> Ahmad invests $250,000 cash for a 1/4 capital interest in the firm.</p>
-        <div class="calc-tool">
-          <strong>Calculation of Total Capital & Tarek's Investment:</strong>
-          <div class="formula-display">
-            \text{Total Capital} = \frac{\text{Ahmad's Capital}}{\text{Ahmad's Fraction}} = \frac{250,000}{1/4} = 250,000 \times 4 = \$1,000,000
-          </div>
-          <div class="formula-display">
-            \text{Tarek's Capital} = \text{Total Capital} - \text{Ahmad's Capital} = 1,000,000 - 250,000 = \$750,000
-          </div>
+        <div class="alert-box trap">
+          <div class="alert-title">⚠️ Common Pitfalls: Revenue vs. Profit vs. Drawings</div>
+          <p><strong>Revenue:</strong> Gross money earned from sales.</p>
+          <p><strong>Profit (Net Income):</strong> What is left after deducting business expenses ($\text{Revenue} - \text{Expenses}$).</p>
+          <p><strong>Drawings:</strong> Money removed by partners for personal living expenses. Drawings are <em>not</em> expenses of the business.</p>
+        </div>
+      </article>
+
+      <!-- ====================================================================
+           MODULE 2: NATURE AND CHARACTERISTICS
+           ==================================================================== -->
+      <article id="m-nature" class="module-card">
+        <h2>Module 2: Nature, Legal Definitions & Characteristics</h2>
+        <div class="module-meta">Source: Partnership Definitions & Characteristics</div>
+
+        <p>A partnership is a legal relation formed by contract between two or more competent persons uniting property, money, or labor for joint profit.</p>
+
+        <h3>Core Legal Characteristics</h3>
+        <ul style="margin-left: 1.25rem; font-size: 0.9rem;">
+          <li><strong>Mutual Agency:</strong> Any partner acts as an authorized agent able to bind the firm.</li>
+          <li><strong>Unlimited Liability:</strong> Partners can lose personal assets if business assets cannot satisfy creditors.</li>
+          <li><strong>Limited Life:</strong> Any change in partners dissolves the legal contract.</li>
+          <li><strong>Co-ownership of Property:</strong> Contributed assets belong to the firm jointly.</li>
+        </ul>
+      </article>
+
+      <!-- ====================================================================
+           MODULE 3: FORMATION (NEW PARTNERSHIP)
+           ==================================================================== -->
+      <article id="m-formation" class="module-card">
+        <h2>Module 3: Partnership Formation (New Firm)</h2>
+        <div class="module-meta">Source: Scenarios 1: Assumptions 1, 2, 3</div>
+
+        <div class="alert-box rule">
+          <div class="alert-title">📌 Key Accounting Principles for Formation</div>
+          <ol style="margin-left: 1.1rem; font-size: 0.88rem;">
+            <li><strong>Agreed / Fair Market Value:</strong> Non-cash assets must be recorded at agreed value, never at historical cost.</li>
+            <li><strong>No Old Accumulated Depreciation:</strong> Previous depreciation is discarded; agreed value becomes the new historical cost.</li>
+            <li><strong>Allowance for Doubtful Accounts Is Retained:</strong> Gross receivables are debited; allowance is credited to show net collectible value.</li>
+          </ol>
         </div>
 
-        <h3>Scenario 1C: Cash, Non-Cash Assets, and an Industrial Partner</h3>
-        <p><em>Illustration:</em> Ahmad contributes Cash $50,000, Accounts Receivable $225,000 with Allowance of $75,000, and Machinery costing $230,000 (accumulated depreciation $40,000) with agreed value of $200,000. Tarek is an <strong>industrial partner</strong> contributing professional skills for 1/3 of profits/capital.</p>
-
+        <h3>Scenario: Equal Cash Contributions</h3>
         <div class="journal-entry">
           <table>
-            <thead>
-              <tr><th>Account Title</th><th style="width: 100px;">Dr ($)</th><th style="width: 100px;">Cr ($)</th></tr>
-            </thead>
+            <thead><tr><th>Account Title</th><th style="width: 85px;">Dr ($)</th><th style="width: 85px;">Cr ($)</th></tr></thead>
+            <tbody>
+              <tr><td>Cash</td><td>1,000,000</td><td></td></tr>
+              <tr><td class="journal-credit">Ahmad, Capital</td><td></td><td>500,000</td></tr>
+              <tr><td class="journal-credit">Tarek, Capital</td><td></td><td>500,000</td></tr>
+              <tr><td colspan="3" class="journal-desc">(To record cash investments of Ahmad and Tarek)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Scenario: Industrial Partner Contribution</h3>
+        <p>Ahmad contributes cash ($50,000), receivables ($225,000, allowance $75,000), and machinery ($200,000). Tarek contributes his industry/skills for a 1/3 interest.</p>
+        <div class="journal-entry">
+          <table>
+            <thead><tr><th>Account Title</th><th style="width: 85px;">Dr ($)</th><th style="width: 85px;">Cr ($)</th></tr></thead>
             <tbody>
               <tr><td>Cash</td><td>50,000</td><td></td></tr>
               <tr><td>Accounts Receivable</td><td>225,000</td><td></td></tr>
               <tr><td>Machinery (at agreed value)</td><td>200,000</td><td></td></tr>
               <tr><td class="journal-credit">Allowance for Uncollectible Accounts</td><td></td><td>75,000</td></tr>
               <tr><td class="journal-credit">Ahmad, Capital</td><td></td><td>400,000</td></tr>
-              <tr><td colspan="3" class="journal-desc">(To record Ahmad's tangible contribution. Tarek admitted as industrial partner per memorandum entry.)</td></tr>
+              <tr><td colspan="3" class="journal-desc">(Tarek admitted as industrial partner via memorandum)</td></tr>
             </tbody>
           </table>
         </div>
       </article>
 
       <!-- ====================================================================
-           MODULE 4: FORMATION FROM SOLE PROPRIETORSHIPS (NEW VS EXISTING BOOKS)
+           MODULE 4: SOLE PROPRIETORS FORMING PARTNERSHIP
            ==================================================================== -->
       <article id="m-soleprop" class="module-card">
-        <h2>Module 4: Formation from Sole Proprietorships</h2>
-        <div class="module-meta">
-          <span>Source: Menna & Dina (Star Co / DIM Co)</span>
-        </div>
+        <h2>Module 4: Sole Proprietors Forming a Partnership</h2>
+        <div class="module-meta">Source: Menna & Dina (Star Co / DIM Co)</div>
 
-        <p>When existing sole proprietors unite to form a partnership, two accounting methods can be adopted:</p>
-
-        <table class="accounting-table">
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>How it Works</th>
-              <th>Key Journal Entries</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Assumption 1: New Set of Books</strong></td>
-              <td>Old ledger books are closed. The new firm opens fresh books recording all assets and liabilities at agreed values.</td>
-              <td>Debit assets at agreed values; credit liabilities at agreed values; credit partner capital for net difference. No revaluation accounts needed.</td>
-            </tr>
-            <tr>
-              <td><strong>Assumption 2: Retain One Sole Proprietor's Books</strong></td>
-              <td>The existing ledger of one partner (e.g., Menna) is kept. Her accounts must first be adjusted to agreed values through Capital, and the second partner's investment is recorded.</td>
-              <td>1. Adjust asset/liability values against Proprietor Capital.<br>2. Close old Accumulated Depreciation against asset account.<br>3. Record the new partner's contribution.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Comprehensive Worked Problem: Menna and Dina</h3>
-        <table class="accounting-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th class="num">Menna (Book)</th>
-              <th class="num">Menna (Agreed)</th>
-              <th class="num">Dina (Book)</th>
-              <th class="num">Dina (Agreed)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Cash</td><td class="num">150,000</td><td class="num">150,000</td><td class="num">140,000</td><td class="num">140,000</td></tr>
-            <tr><td>Accounts Receivable</td><td class="num">140,000</td><td class="num">140,000</td><td class="num">135,000</td><td class="num">135,000</td></tr>
-            <tr><td>Allowance for Doubtful Accts</td><td class="num">(50,000)</td><td class="num">(40,000)</td><td class="num">(30,000)</td><td class="num">(40,000)</td></tr>
-            <tr><td>Inventories</td><td class="num">135,000</td><td class="num">137,000</td><td class="num">128,000</td><td class="num">130,000</td></tr>
-            <tr><td>Equipment (Cost)</td><td class="num">300,000</td><td class="num">150,000</td><td class="num">200,000</td><td class="num">175,000</td></tr>
-            <tr><td>Accumulated Depreciation</td><td class="num">(60,000)</td><td class="num">—</td><td class="num">(20,000)</td><td class="num">—</td></tr>
-            <tr><td>Accounts Payable</td><td class="num">100,000</td><td class="num">100,000</td><td class="num">150,000</td><td class="num">150,000</td></tr>
-          </tbody>
-        </table>
-
-        <h4>Under Assumption 1 (New Set of Books):</h4>
-        <div class="journal-entry">
-          <table>
-            <thead><tr><th>Account Title</th><th style="width: 100px;">Dr ($)</th><th style="width: 100px;">Cr ($)</th></tr></thead>
+        <div class="table-scroll-wrapper">
+          <span class="table-scroll-hint">Swipe ↔ to view columns</span>
+          <table class="accounting-table">
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th class="num">Menna (Book)</th>
+                <th class="num">Menna (Agreed)</th>
+                <th class="num">Dina (Book)</th>
+                <th class="num">Dina (Agreed)</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td><strong>To record Menna's Contribution:</strong></td><td></td><td></td></tr>
-              <tr><td>Cash</td><td>150,000</td><td></td></tr>
-              <tr><td>Accounts Receivable</td><td>140,000</td><td></td></tr>
-              <tr><td>Inventories</td><td>137,000</td><td></td></tr>
-              <tr><td>Equipment</td><td>150,000</td><td></td></tr>
-              <tr><td class="journal-credit">Allowance for Uncollectible Accounts</td><td></td><td>40,000</td></tr>
-              <tr><td class="journal-credit">Accounts Payable</td><td></td><td>100,000</td></tr>
-              <tr><td class="journal-credit"><strong>Menna, Capital</strong> ($577,000 - $140,000)</td><td></td><td><strong>437,000</strong></td></tr>
-              <tr><td colspan="3" style="height: 10px;"></td></tr>
-              <tr><td><strong>To record Dina's Contribution:</strong></td><td></td><td></td></tr>
-              <tr><td>Cash</td><td>140,000</td><td></td></tr>
-              <tr><td>Accounts Receivable</td><td>135,000</td><td></td></tr>
-              <tr><td>Inventories</td><td>130,000</td><td></td></tr>
-              <tr><td>Equipment</td><td>175,000</td><td></td></tr>
-              <tr><td class="journal-credit">Allowance for Uncollectible Accounts</td><td></td><td>40,000</td></tr>
-              <tr><td class="journal-credit">Accounts Payable</td><td></td><td>150,000</td></tr>
-              <tr><td class="journal-credit"><strong>Dina, Capital</strong> ($580,000 - $190,000)</td><td></td><td><strong>390,000</strong></td></tr>
+              <tr><td>Cash</td><td class="num">150,000</td><td class="num">150,000</td><td class="num">140,000</td><td class="num">140,000</td></tr>
+              <tr><td>Accounts Receivable</td><td class="num">140,000</td><td class="num">140,000</td><td class="num">135,000</td><td class="num">135,000</td></tr>
+              <tr><td>Allowance for Doubtful Accts</td><td class="num">(50,000)</td><td class="num">(40,000)</td><td class="num">(30,000)</td><td class="num">(40,000)</td></tr>
+              <tr><td>Inventories</td><td class="num">135,000</td><td class="num">137,000</td><td class="num">128,000</td><td class="num">130,000</td></tr>
+              <tr><td>Equipment</td><td class="num">300,000</td><td class="num">150,000</td><td class="num">200,000</td><td class="num">175,000</td></tr>
+              <tr><td>Accumulated Depreciation</td><td class="num">(60,000)</td><td class="num">—</td><td class="num">(20,000)</td><td class="num">—</td></tr>
+              <tr><td>Accounts Payable</td><td class="num">100,000</td><td class="num">100,000</td><td class="num">150,000</td><td class="num">150,000</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h4>Under Assumption 2 (Retain Menna's Existing Books):</h4>
-        <p>In Menna's books, adjustments are made directly to her Capital:</p>
-        <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem;">
-          <li>Allowance reduced from $50,000 to $40,000 $\rightarrow$ Gain: $+10,000$ (Debit Allowance)</li>
-          <li>Inventory revalued up from $135,000 to $137,000 $\rightarrow$ Gain: $+2,000$ (Debit Inventory)</li>
-          <li>Close Accumulated Depreciation: Debit Acc. Dep. $60,000$</li>
-          <li>Write Equipment down to agreed $150,000$ (Credit Equipment $150,000$)</li>
-          <li>Net Net Adjustment to Menna Capital: $+10,000 + 2,000 + 60,000 - 150,000 = \mathbf{-78,000}$ (Debit Menna Capital)</li>
-        </ul>
-
+        <h4>Assumption 2: Books of Menna Retained</h4>
+        <p>Menna's capital is debited by <strong>$78,000</strong> to adjust her ledger accounts to agreed values:</p>
         <div class="journal-entry">
           <table>
-            <thead><tr><th>Account Title</th><th style="width: 100px;">Dr ($)</th><th style="width: 100px;">Cr ($)</th></tr></thead>
+            <thead><tr><th>Account Title</th><th style="width: 85px;">Dr ($)</th><th style="width: 85px;">Cr ($)</th></tr></thead>
             <tbody>
               <tr><td>Allowance for Uncollectible Accounts</td><td>10,000</td><td></td></tr>
               <tr><td>Inventories</td><td>2,000</td><td></td></tr>
               <tr><td>Accumulated Depreciation</td><td>60,000</td><td></td></tr>
-              <tr><td><strong>Menna, Capital</strong> (Net Revaluation Loss)</td><td><strong>78,000</strong></td><td></td></tr>
+              <tr><td>Menna, Capital (Net Revaluation Loss)</td><td>78,000</td><td></td></tr>
               <tr><td class="journal-credit">Equipment</td><td></td><td>150,000</td></tr>
-              <tr><td colspan="3" class="journal-desc">(To adjust Menna's accounts to agreed values. Her revised capital is $515,000 - $78,000 = $437,000)</td></tr>
             </tbody>
           </table>
         </div>
       </article>
 
       <!-- ====================================================================
-           MODULE 5: PARTNERSHIP OPERATIONS & P&L APPROPRIATION
+           MODULE 5 & 6: OPERATIONS & COMMISSIONS
            ==================================================================== -->
       <article id="m-operations" class="module-card">
         <h2>Module 5: Partnership Operations & Profit Allocation</h2>
-        <div class="module-meta">
-          <span>Source: Illustrations 1, 4 & Example 1</span>
-        </div>
+        <div class="module-meta">Source: Illustrations 1, 4 & Example 1</div>
 
-        <p>Unlike a sole proprietorship where all net income belongs to one person, a partnership must allocate net income through a <strong>Profit and Loss Appropriation Account</strong>.</p>
+        <p>Partnership profits are distributed using the <strong>Profit & Loss Appropriation Account</strong>.</p>
 
-        <div class="alert-box rule">
-          <div class="alert-title">📜 Order of Priority in Profit Allocation</div>
-          <ol style="margin-left: 1.25rem;">
-            <li><strong>Interest on Partner Capital:</strong> Compensates partners for differing amounts of invested capital.</li>
-            <li><strong>Partners' Salaries:</strong> Compensates partners for personal time and management efforts.</li>
-            <li><strong>Partners' Bonuses / Commissions:</strong> Incentives based on net earnings.</li>
-            <li><strong>Interest on Drawings:</strong> Charged to partners who withdraw funds, credited back to the firm's appropriation account.</li>
-            <li><strong>Reserves:</strong> Transfers to general or statutory reserves.</li>
-            <li><strong>Remaining Divisible Profit / Loss:</strong> Divided strictly according to the agreed <em>Profit and Loss Sharing Ratio</em>. If no ratio is agreed upon, profits and losses are shared <strong>equally (50:50)</strong> by law.</li>
-          </ol>
-        </div>
-
-        <h3>Worked Master Problem: Ahmad and Tarek</h3>
-        <p><em>Facts:</em> Ahmad & Tarek capital $30,000 and $20,000. Profit for the year: $27,100. Interest on capital: 5%. Ahmad salary: $600/month ($7,200/year). Tarek loan: $10,000 @ 6% interest ($600). Profit ratio: not stated (shared equally).</p>
-
-        <div class="t-account-grid">
-          <div class="t-account">
-            <div class="t-account-title">Profit & Loss Appropriation Account</div>
-            <div class="t-account-body">
-              <div class="t-col-dr">
-                <div style="font-weight: 700; border-bottom: 1px solid #ccc; margin-bottom: 4px;">Debits (Appropriations)</div>
-                <div class="t-row"><span>Interest on Loan (Tarek)</span><span>600</span></div>
-                <div class="t-row"><span>Interest on Capital (Ahmad)</span><span>1,500</span></div>
-                <div class="t-row"><span>Interest on Capital (Tarek)</span><span>1,000</span></div>
-                <div class="t-row"><span>Salary (Ahmad)</span><span>7,200</span></div>
-                <div class="t-row" style="border-top: 1px solid #999; margin-top: 6px; font-weight: 700;">
-                  <span>Divisible Profit:</span><span></span>
-                </div>
-                <div class="t-row"><span>Current A/C Ahmad (50%)</span><span>8,400</span></div>
-                <div class="t-row"><span>Current A/C Tarek (50%)</span><span>8,400</span></div>
-                <div class="t-row" style="border-top: 2px solid #000; font-weight: 800;">
-                  <span>Total</span><span>27,100</span>
-                </div>
-              </div>
-              <div class="t-col-cr">
-                <div style="font-weight: 700; border-bottom: 1px solid #ccc; margin-bottom: 4px;">Credits (Income)</div>
-                <div class="t-row"><span>Net Profit as per P&L</span><span>27,100</span></div>
-                <div style="height: 120px;"></div>
-                <div class="t-row" style="border-top: 2px solid #000; font-weight: 800;">
-                  <span>Total</span><span>27,100</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- ====================================================================
-           MODULE 6: MANAGERIAL COMMISSIONS (BEFORE VS AFTER CHARGING)
-           ==================================================================== -->
-      <article id="m-commissions" class="module-card">
-        <h2>Module 6: Advanced Managerial Commissions & Prior-Period Errors</h2>
-        <div class="module-meta">
-          <span>Source: Illustration 4 (Partners A, B, and C)</span>
-        </div>
-
-        <p>One of the most heavily tested areas in university accounting is calculating partner commissions when agreements state <em>"commission after charging..."</em></p>
-
-        <div class="alert-box rule">
-          <div class="alert-title">📐 The Commission Formulas</div>
-          <p><strong>Case 1: Commission BEFORE charging such commission:</strong></p>
-          $$\text{Commission} = \text{Net Profit Base} \times \text{Rate}$$
-          <p style="margin-top: 0.5rem;"><strong>Case 2: Commission AFTER charging his OWN commission:</strong></p>
-          $$\text{Commission} = \text{Net Profit Base} \times \frac{\text{Rate}}{100 + \text{Rate}}$$
-          <em>Why?</em> Because the commission itself reduces the base profit on which it is calculated: $\text{Commission} = 10\% \times (\text{Base} - \text{Commission}) \implies 1.10 \times \text{Commission} = 0.10 \times \text{Base} \implies \text{Commission} = \text{Base} \times \frac{10}{110}$.
-        </div>
-
-        <h3>Interactive Step-by-Step Solver: Illustration 4</h3>
-        <p>Net profit reported: $162,000. Overlooked Plant Depreciation: $18,000. Reserve: 10%. Salary A: $2,000/mo. Commission terms: A gets 10% net profit; B gets 10% after A's commission; C gets 10% after A's, B's, and his own commission.</p>
+        <h3>Interactive Step-by-Step Problem Solver (Illustration 4)</h3>
+        <p>Net profit: $162,000. Overlooked depreciation: $18,000. Reserve: 10%. A salary: $2,000/mo. Commissions: A = 10% NP; B = 10% after A's commission; C = 10% after A, B, and his own commission.</p>
 
         <div class="calc-tool">
-          <div class="calc-btn-group" style="margin-bottom: 1rem;">
-            <button class="btn btn-pdf" onclick="revealCalcStep('step1')">Step 1: Correct Net Profit</button>
-            <button class="btn btn-outline" style="color: var(--primary);" onclick="revealCalcStep('step2')">Step 2: Reserve & Salaries</button>
-            <button class="btn btn-outline" style="color: var(--primary);" onclick="revealCalcStep('step3')">Step 3: Commissions A, B, C</button>
-            <button class="btn btn-outline" style="color: var(--primary);" onclick="revealCalcStep('step4')">Step 4: Divisible Profit</button>
+          <div class="calc-btn-group">
+            <button class="btn btn-pdf" onclick="revealCalcStep('step1')">1. Net Profit</button>
+            <button class="btn btn-outline" style="color: var(--primary);" onclick="revealCalcStep('step2')">2. Salary/Reserve</button>
+            <button class="btn btn-outline" style="color: var(--primary);" onclick="revealCalcStep('step3')">3. Commissions</button>
+            <button class="btn btn-outline" style="color: var(--primary);" onclick="revealCalcStep('step4')">4. Divisible Profit</button>
           </div>
 
           <div id="step1" class="calc-step revealed">
-            <div class="step-number">Step 1: Prior Period Correction</div>
-            $$\text{Correct Net Profit} = \$162,000 - \$18,000 (\text{Depreciation}) = \mathbf{\$144,000}$$
-            Depreciation is an operating expense. It must be subtracted before calculating partnership appropriations.
+            <div class="step-number">Step 1: Depreciation Adjustment</div>
+            $$\text{Adjusted Net Profit} = \$162,000 - \$18,000 = \mathbf{\$144,000}$$
           </div>
 
           <div id="step2" class="calc-step">
-            <div class="step-number">Step 2: Reserve & Partner Salaries</div>
+            <div class="step-number">Step 2: Reserve & Salaries</div>
             <ul>
-              <li><strong>Transfer to Reserve (10%):</strong> $\$144,000 \times 10\% = \mathbf{\$14,400}$</li>
-              <li><strong>Salary to A:</strong> $\$2,000 \times 12 = \mathbf{\$24,000}$</li>
-              <li><strong>Interest on Capital (10%):</strong> A: $\$6,000$, B: $\$8,000$, C: $\$5,000$ (Total $= \mathbf{\$19,000}$)</li>
-              <li><strong>Interest on Drawings (10% on withdrawals):</strong> A: $\$400$, B: $\$600$, C: $\$300$ (Total Credit $= \mathbf{\$1,300}$)</li>
+              <li>Reserve (10%): $\$144,000 \times 10\% = \mathbf{\$14,400}$</li>
+              <li>A's Salary: $\$2,000 \times 12 = \mathbf{\$24,000}$</li>
+              <li>Interest on Capital: A: $\$6,000$, B: $\$8,000$, C: $\$5,000$ (Total $= \mathbf{\$19,000}$)</li>
+              <li>Interest on Drawings: A: $\$400$, B: $\$600$, C: $\$300$ (Total Credit $= \mathbf{\$1,300}$)</li>
             </ul>
           </div>
 
           <div id="step3" class="calc-step">
             <div class="step-number">Step 3: Calculating Partner Commissions</div>
             <ul>
-              <li><strong>Commission A (10% of Net Profit):</strong>
-                $$\$144,000 \times 10\% = \mathbf{\$14,400}$$
-              </li>
-              <li><strong>Commission B (10% after charging A's commission):</strong>
-                $$\text{Base} = \$144,000 - \$14,400 = \$129,600 \quad \text{or course standard using 10/110}: \mathbf{\$13,091}$$
-              </li>
-              <li><strong>Commission C (10% after A's, B's, and HIS OWN commission):</strong>
-                $$\text{Base} = \$144,000 - \$14,400 - \$13,091 = \$116,509$$
+              <li><strong>Commission A:</strong> $\$144,000 \times 10\% = \mathbf{\$14,400}$</li>
+              <li><strong>Commission B:</strong> Course formula: $\mathbf{\$13,091}$</li>
+              <li><strong>Commission C:</strong> Base $= \$144,000 - \$14,400 - \$13,091 = \$116,509$
                 $$\text{Commission C} = \$116,509 \times \frac{10}{110} = \mathbf{\$10,592}$$
               </li>
             </ul>
@@ -1273,146 +1061,48 @@
 
           <div id="step4" class="calc-step">
             <div class="step-number">Step 4: Divisible Profit Distribution (5:3:2)</div>
-            <p>Total Credits ($144,000 + 1,300$) - Total Debits ($19,000 + 24,000 + 14,400 + 14,400 + 13,091 + 10,592$) = <strong>$49,817</strong></p>
-            <p>Allocated per deed agreement: First $30,000 equally ($10,000 each), remainder $19,817 in ratio 5:3:2:</p>
+            <p>Remaining profit = <strong>$49,817</strong></p>
             <ul>
-              <li><strong>A:</strong> $10,000 + (19,817 \times 5/10) = 10,000 + 9,909 = \mathbf{\$19,909}$</li>
-              <li><strong>B:</strong> $10,000 + (19,817 \times 3/10) = 10,000 + 5,945 = \mathbf{\$15,945}$</li>
-              <li><strong>C:</strong> $10,000 + (19,817 \times 2/10) = 10,000 + 3,963 = \mathbf{\$13,963}$</li>
+              <li><strong>A:</strong> $10,000 + (19,817 \times 5/10) = \mathbf{\$19,909}$</li>
+              <li><strong>B:</strong> $10,000 + (19,817 \times 3/10) = \mathbf{\$15,945}$</li>
+              <li><strong>C:</strong> $10,000 + (19,817 \times 2/10) = \mathbf{\$13,963}$</li>
             </ul>
           </div>
         </div>
       </article>
 
       <!-- ====================================================================
-           MODULE 7: FIXED CAPITAL SYSTEM VS FLUCTUATING CAPITAL SYSTEM
+           MODULE 7: FIXED VS FLUCTUATING CAPITAL
            ==================================================================== -->
       <article id="m-cap-systems" class="module-card">
-        <h2>Module 7: Fixed Capital System vs. Fluctuating Capital System</h2>
-        <div class="module-meta">
-          <span>Source: Illustrations 2 and 3</span>
-        </div>
+        <h2>Module 7: Fixed vs. Fluctuating Capital Systems</h2>
+        <div class="module-meta">Source: Illustrations 2 & 3</div>
 
-        <p>How are partner earnings recorded in the ledger? Accounting provides two distinct frameworks:</p>
-
-        <table class="accounting-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>Fixed Capital System</th>
-              <th>Fluctuating Capital System</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Accounts Maintained per Partner</strong></td>
-              <td><strong>Two:</strong> Capital Account AND Current Account.</td>
-              <td><strong>One:</strong> Capital Account only.</td>
-            </tr>
-            <tr>
-              <td><strong>What is Recorded in Capital A/C?</strong></td>
-              <td>Only initial capital, permanent additions, or permanent withdrawals. The balance remains constant year-to-year.</td>
-              <td>Everything: initial capital, drawings, salary, interest, and share of profit or loss.</td>
-            </tr>
-            <tr>
-              <td><strong>What is Recorded in Current A/C?</strong></td>
-              <td>All recurring operational items: salary, interest on capital, share of profit/loss, and drawings.</td>
-              <td>Not used (no current account exists).</td>
-            </tr>
-            <tr>
-              <td><strong>Balance Sheet Presentation</strong></td>
-              <td>Shows Capital Account (fixed) $\pm$ Current Account balance.</td>
-              <td>Shows fluctuating Capital Account ending balance.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Illustration 2: Ledger under Fluctuating Capital System</h3>
-        <div class="journal-entry">
-          <table>
+        <div class="table-scroll-wrapper">
+          <span class="table-scroll-hint">Swipe ↔ to view columns</span>
+          <table class="accounting-table">
             <thead>
               <tr>
-                <th>Dr</th><th class="num">Ahmad ($)</th><th class="num">Tarek ($)</th>
-                <th>Cr</th><th class="num">Ahmad ($)</th><th class="num">Tarek ($)</th>
+                <th>Feature</th>
+                <th>Fixed Capital System</th>
+                <th>Fluctuating Capital System</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td></td><td></td><td></td>
-                <td>By Bank (Initial Capital)</td><td class="num">30,000</td><td class="num">20,000</td>
+                <td><strong>Accounts Maintained</strong></td>
+                <td><strong>Two:</strong> Capital Account + Current Account</td>
+                <td><strong>One:</strong> Capital Account only</td>
               </tr>
               <tr>
-                <td></td><td></td><td></td>
-                <td>By Interest on Loan</td><td class="num">—</td><td class="num">600</td>
+                <td><strong>Capital Balance</strong></td>
+                <td>Remains fixed unless permanent capital change occurs</td>
+                <td>Changes (fluctuates) continuously with every profit/drawing</td>
               </tr>
               <tr>
-                <td></td><td></td><td></td>
-                <td>By Interest on Capital</td><td class="num">1,500</td><td class="num">1,000</td>
-              </tr>
-              <tr>
-                <td></td><td></td><td></td>
-                <td>By Salary</td><td class="num">7,200</td><td class="num">—</td>
-              </tr>
-              <tr>
-                <td></td><td></td><td></td>
-                <td>By P&L Appropriation A/C</td><td class="num">8,400</td><td class="num">8,400</td>
-              </tr>
-              <tr style="border-top: 1px solid #000; font-weight: 700;">
-                <td>To Balance c/f</td><td class="num">47,100</td><td class="num">30,000</td>
-                <td>Total</td><td class="num">47,100</td><td class="num">30,000</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Illustration 3: Ledgers under Fixed Capital System</h3>
-        <p><strong>1. Capital Account (Fixed):</strong></p>
-        <div class="journal-entry">
-          <table>
-            <thead>
-              <tr>
-                <th>Dr</th><th class="num">Ahmad ($)</th><th class="num">Tarek ($)</th>
-                <th>Cr</th><th class="num">Ahmad ($)</th><th class="num">Tarek ($)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>To Balance c/f</td><td class="num">30,000</td><td class="num">20,000</td>
-                <td>By Bank a/c</td><td class="num">30,000</td><td class="num">20,000</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p><strong>2. Current Account (Operational Adjustments):</strong></p>
-        <div class="journal-entry">
-          <table>
-            <thead>
-              <tr>
-                <th>Dr</th><th class="num">Ahmad ($)</th><th class="num">Tarek ($)</th>
-                <th>Cr</th><th class="num">Ahmad ($)</th><th class="num">Tarek ($)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td><td></td><td></td>
-                <td>By Interest on Loan</td><td class="num">—</td><td class="num">600</td>
-              </tr>
-              <tr>
-                <td></td><td></td><td></td>
-                <td>By Interest on Capital</td><td class="num">1,500</td><td class="num">1,000</td>
-              </tr>
-              <tr>
-                <td></td><td></td><td></td>
-                <td>By Salary</td><td class="num">7,200</td><td class="num">—</td>
-              </tr>
-              <tr>
-                <td></td><td></td><td></td>
-                <td>By P&L Appropriation</td><td class="num">8,400</td><td class="num">8,400</td>
-              </tr>
-              <tr style="border-top: 1px solid #000; font-weight: 700;">
-                <td>To Balance c/f</td><td class="num">17,100</td><td class="num">10,000</td>
-                <td>Total</td><td class="num">17,100</td><td class="num">10,000</td>
+                <td><strong>Current Account</strong></td>
+                <td>Holds salaries, interest, profit shares, and drawings</td>
+                <td>Not used</td>
               </tr>
             </tbody>
           </table>
@@ -1420,360 +1110,168 @@
       </article>
 
       <!-- ====================================================================
-           MODULE 8: PARTNERSHIP DISSOLUTION (BONUS & REVALUATION METHODS)
+           MODULE 8, 9, 10: DISSOLUTION, LIQUIDATION & CORPORATIONS
            ==================================================================== -->
       <article id="m-dissolution" class="module-card">
-        <h2>Module 8: Partnership Dissolution (Bonus vs. Revaluation Method)</h2>
-        <div class="module-meta">
-          <span>Official University Curriculum Core Topic</span>
-        </div>
-
-        <p>Dissolution is the change in the relation of the partners caused by any partner ceasing to be associated with the firm (e.g., admitting a new partner, retirement, or death). The business can continue under a new contract.</p>
-
-        <h3>Admission by Direct Investment: Bonus vs. Revaluation (Goodwill)</h3>
-        <table class="accounting-table">
-          <thead>
-            <tr>
-              <th>Criteria</th>
-              <th>Bonus Method</th>
-              <th>Revaluation (Goodwill) Method</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Total Contributed Capital (TCC) vs Total Agreed Capital (TAC)</strong></td>
-              <td>$\text{TAC} = \text{TCC}$. Total capital of the firm does NOT change.</td>
-              <td>$\text{TAC} \neq \text{TCC}$. Total capital is adjusted upward to recognize unrecorded asset appreciation or goodwill.</td>
-            </tr>
-            <tr>
-              <td><strong>Bonus to Existing Partners</strong></td>
-              <td>Occurs when New Partner Investment $>$ New Partner Capital Credit. The excess is credited to old partners in their P/L ratio.</td>
-              <td>Assets revalued upward and credited to old partners in their old P/L ratio before admitting the new partner.</td>
-            </tr>
-            <tr>
-              <td><strong>Bonus to New Partner</strong></td>
-              <td>Occurs when New Partner Investment $<$ New Partner Capital Credit. The deficiency is debited to old partners' capital in their P/L ratio.</td>
-              <td>Implicit goodwill of the new partner is recognized and credited to the new partner's capital.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="alert-box rule">
-          <div class="alert-title">Bonus Method Formulation</div>
-          $$\text{Bonus to Old Partners} = \text{Investment} - (\text{Total Agreed Capital} \times \text{New Partner's \% Interest})$$
-          If positive, bonus goes to old partners. If negative, bonus goes to the incoming partner.
-        </div>
+        <h2>Module 8: Dissolution (Bonus vs. Revaluation Method)</h2>
+        <p><strong>Bonus Method:</strong> Total Agreed Capital = Total Contributed Capital. No goodwill recognized.</p>
+        $$\text{Bonus} = \text{Investment} - (\text{Total Agreed Capital} \times \% \text{ Share})$$
       </article>
 
-      <!-- ====================================================================
-           MODULE 9: PARTNERSHIP LIQUIDATION (WINDING UP)
-           ==================================================================== -->
       <article id="m-liquidation" class="module-card">
-        <h2>Module 9: Partnership Liquidation (Winding Up of Affairs)</h2>
-        <div class="module-meta">
-          <span>Official University Curriculum Core Topic</span>
-        </div>
-
-        <p>Liquidation is the final termination of the partnership enterprise. All business operations cease, non-cash assets are sold, liabilities are paid, and remaining cash is distributed to partners.</p>
-
-        <div class="alert-box rule">
-          <div class="alert-title">⚖️ The 4 Strict Legal Steps in Liquidation</div>
-          <ol style="margin-left: 1.25rem;">
-            <li><strong>Realization:</strong> Sell all non-cash assets for cash. Record gain or loss in the <em>Loss and Gain on Realization</em> account.</li>
-            <li><strong>Division of Gain/Loss:</strong> Allocate the net gain or loss on realization among partners strictly in their <strong>P/L sharing ratio</strong> (never in capital ratio!).</li>
-            <li><strong>Payment of Liabilities:</strong> Pay all outside creditors and liquidation expenses. Outside creditors always have legal priority over partner capital.</li>
-            <li><strong>Final Distribution of Cash:</strong> Distribute the remaining cash to partners based strictly on their <strong>final positive capital balances</strong>.</li>
-          </ol>
-        </div>
-
-        <div class="alert-box trap">
-          <div class="alert-title">⚠️ The Capital Deficiency Trap</div>
-          <p>If a partner suffers heavy realization losses that make their capital account negative (a <strong>debit balance</strong>), that partner is legally obligated to bring in personal cash to cover the deficiency. If the partner is insolvent, the remaining solvent partners must absorb the deficiency according to their relative P/L ratio.</p>
-        </div>
+        <h2>Module 9: Partnership Liquidation (Winding Up)</h2>
+        <p>1. Realize non-cash assets $\rightarrow$ 2. Allocate gain/loss in <strong>P/L ratio</strong> $\rightarrow$ 3. Pay outside creditors $\rightarrow$ 4. Distribute cash according to <strong>positive capital balances</strong>.</p>
       </article>
 
-      <!-- ====================================================================
-           MODULE 10: CORPORATION ACCOUNTING FOUNDATIONS
-           ==================================================================== -->
       <article id="m-corporation" class="module-card">
-        <h2>Module 10: Corporation Accounting Foundations & Stockholders' Equity</h2>
-        <div class="module-meta">
-          <span>Official University Curriculum Core Topic</span>
-        </div>
-
-        <p>A corporation is an artificial being created by operation of law, having the right of succession and powers authorized by law. Unlike partnerships, owners (shareholders) enjoy <strong>limited liability</strong>.</p>
-
-        <h3>Structure of Stockholders' Equity</h3>
-        $$\text{Stockholders' Equity} = \text{Paid-in Capital} + \text{Retained Earnings} - \text{Treasury Stock}$$
-
-        <table class="accounting-table">
-          <thead>
-            <tr>
-              <th>Account Title</th>
-              <th>Classification</th>
-              <th>Normal Balance</th>
-              <th>Accounting Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Common Stock (Share Capital)</strong></td>
-              <td>Contributed Capital</td>
-              <td>Credit</td>
-              <td>Recorded strictly at <strong>Par Value</strong> or Stated Value per share issued.</td>
-            </tr>
-            <tr>
-              <td><strong>Paid-in Capital in Excess of Par (Share Premium)</strong></td>
-              <td>Contributed Capital</td>
-              <td>Credit</td>
-              <td>Excess cash received over the par value when issuing stock.</td>
-            </tr>
-            <tr>
-              <td><strong>Retained Earnings</strong></td>
-              <td>Earned Capital</td>
-              <td>Credit</td>
-              <td>Accumulated lifetime profits of the corporation less lifetime dividends paid.</td>
-            </tr>
-            <tr>
-              <td><strong>Treasury Stock</strong></td>
-              <td>Contra-Equity</td>
-              <td><strong>Debit</strong></td>
-              <td>A corporation's own shares previously issued and later reacquired. Deducted from Total Stockholders' Equity.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Issuance of Stock Above Par: Journal Entry</h3>
-        <p><em>Example:</em> Issuing 10,000 shares of $10 par common stock for $15 cash per share.</p>
-        <div class="journal-entry">
-          <table>
-            <thead>
-              <tr><th>Account Title</th><th style="width: 100px;">Dr ($)</th><th style="width: 100px;">Cr ($)</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Cash ($10,000 \times \$15$)</td><td>150,000</td><td></td></tr>
-              <tr><td class="journal-credit">Common Stock ($10,000 \times \$10 \text{ par}$)</td><td></td><td>100,000</td></tr>
-              <tr><td class="journal-credit">Paid-in Capital in Excess of Par — Common</td><td></td><td>50,000</td></tr>
-              <tr><td colspan="3" class="journal-desc">(To record issuance of common shares above par value)</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <h2>Module 10: Corporation Accounting & Stockholders' Equity</h2>
+        $$\text{Total Equity} = \text{Share Capital} + \text{Share Premium} + \text{Retained Earnings} - \text{Treasury Stock}$$
       </article>
 
       <!-- ====================================================================
-           INTERACTIVE JOURNAL ENTRY TRAINER
+           INTERACTIVE JOURNAL ENTRY TRAINER (MOBILE-OPTIMIZED)
            ==================================================================== -->
       <article id="m-journal-trainer" class="module-card">
-        <h2>✍️ Interactive Journal Entry Trainer</h2>
-        <div class="module-meta">
-          <span>Interactive Practice Simulator • Instant Ledger Balancing</span>
-        </div>
+        <h2>✍️ Mobile Journal Entry Simulator</h2>
+        <div class="module-meta">Hands-on Touch Practice • Instant Balance Verification</div>
 
-        <p>Practice constructing journal entries. Select the correct accounts and amounts. The simulator ensures total debits equal total credits.</p>
+        <p style="margin-bottom: 0.85rem; font-size: 0.9rem;">
+          <strong>Task:</strong> Record the admission of a partner contributing <strong>$100,000 cash</strong> for equity.
+        </p>
 
-        <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-top: 1rem;">
-          <div style="font-weight: 700; margin-bottom: 0.75rem; color: var(--primary);">
-            Task: Record the admission of a new partner contributing $100,000 cash for a $100,000 capital interest.
-          </div>
-
-          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.75rem; font-weight: 600; font-size: 0.85rem;">
-            <span>Account Selection</span>
-            <span style="text-align: right;">Debit ($)</span>
-            <span style="text-align: right;">Credit ($)</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <select id="je-acc-1" style="padding: 0.4rem; border: 1px solid var(--border); border-radius: 4px;">
-              <option value="">-- Choose Account --</option>
-              <option value="Cash">Cash</option>
-              <option value="Capital">Partner, Capital</option>
+        <!-- Entry Row 1 -->
+        <div class="je-sim-card">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem;">TRANSACTION LINE 1</div>
+          <div class="je-sim-row">
+            <select id="je-acc-1" class="form-control">
+              <option value="">-- Select Account --</option>
+              <option value="Cash">Cash (Asset)</option>
+              <option value="Capital">Partner, Capital (Equity)</option>
               <option value="Accounts Receivable">Accounts Receivable</option>
             </select>
-            <input type="number" id="je-dr-1" placeholder="0" style="padding: 0.4rem; border: 1px solid var(--border); border-radius: 4px; text-align: right;">
-            <input type="number" id="je-cr-1" placeholder="0" style="padding: 0.4rem; border: 1px solid var(--border); border-radius: 4px; text-align: right;">
+            <div class="je-inputs-subgrid">
+              <input type="number" id="je-dr-1" class="form-control" placeholder="Debit $" inputmode="decimal">
+              <input type="number" id="je-cr-1" class="form-control" placeholder="Credit $" inputmode="decimal">
+            </div>
           </div>
+        </div>
 
-          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
-            <select id="je-acc-2" style="padding: 0.4rem; border: 1px solid var(--border); border-radius: 4px;">
-              <option value="">-- Choose Account --</option>
-              <option value="Cash">Cash</option>
-              <option value="Capital">Partner, Capital</option>
+        <!-- Entry Row 2 -->
+        <div class="je-sim-card">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem;">TRANSACTION LINE 2</div>
+          <div class="je-sim-row">
+            <select id="je-acc-2" class="form-control">
+              <option value="">-- Select Account --</option>
+              <option value="Cash">Cash (Asset)</option>
+              <option value="Capital">Partner, Capital (Equity)</option>
               <option value="Accounts Payable">Accounts Payable</option>
             </select>
-            <input type="number" id="je-dr-2" placeholder="0" style="padding: 0.4rem; border: 1px solid var(--border); border-radius: 4px; text-align: right;">
-            <input type="number" id="je-cr-2" placeholder="0" style="padding: 0.4rem; border: 1px solid var(--border); border-radius: 4px; text-align: right;">
+            <div class="je-inputs-subgrid">
+              <input type="number" id="je-dr-2" class="form-control" placeholder="Debit $" inputmode="decimal">
+              <input type="number" id="je-cr-2" class="form-control" placeholder="Credit $" inputmode="decimal">
+            </div>
           </div>
-
-          <button class="btn btn-pdf" onclick="validateJournalEntry()">Verify Journal Entry</button>
-          <div id="je-feedback" style="margin-top: 1rem; font-size: 0.9rem; font-weight: 600;"></div>
         </div>
+
+        <button class="btn btn-pdf" style="width: 100%;" onclick="validateJournalEntry()">Verify Journal Entry</button>
+        <div id="je-feedback" style="margin-top: 0.85rem; font-size: 0.9rem; font-weight: 600;"></div>
       </article>
 
       <!-- ====================================================================
-           INTERACTIVE PRACTICE & EXAM STATION
+           MOBILE QUIZ STATION
            ==================================================================== -->
       <article id="m-quiz-station" class="module-card">
-        <h2>🎯 Practice & Exam Station</h2>
-        <div class="module-meta">
-          <span>University Exam Prep • Instant Feedback & Explanations</span>
-        </div>
+        <h2>🎯 Mobile Practice & Exam Station</h2>
+        <div class="module-meta">Instant Touch Feedback & Academic Rationales</div>
 
-        <!-- Question 1 -->
         <div class="quiz-container" id="q1">
-          <div class="quiz-question">
-            1. Non-cash assets contributed to a partnership upon formation must be recorded in the firm's books at:
-          </div>
+          <div class="quiz-question">1. Non-cash assets contributed to a partnership upon formation must be recorded at:</div>
           <div class="quiz-options">
             <button class="quiz-opt-btn" onclick="checkQuiz(1, 'A', false)">A) Historical cost to the contributing partner</button>
             <button class="quiz-opt-btn" onclick="checkQuiz(1, 'B', true)">B) Agreed value or fair market value at contribution date</button>
             <button class="quiz-opt-btn" onclick="checkQuiz(1, 'C', false)">C) Book value minus old accumulated depreciation</button>
-            <button class="quiz-opt-btn" onclick="checkQuiz(1, 'D', false)">D) Liquidation salvage value</button>
           </div>
           <div class="quiz-feedback" id="q1-fb">
-            <strong>Explanation:</strong> <em>(B) is correct.</em> Accounting principles dictate that investments are recorded at fair market value / agreed value at the date of formation. Historical costs and previous accumulated depreciation of the contributing partner are irrelevant to the new entity.
+            <strong>Explanation:</strong> <em>(B) is correct.</em> Investments are recognized at fair value at the date of formation. Old historical costs and accumulated depreciation are not carried over.
           </div>
         </div>
 
-        <!-- Question 2 -->
         <div class="quiz-container" id="q2">
-          <div class="quiz-question">
-            2. Under the Fixed Capital System, which account is used to record a partner's annual salary and share of profit?
-          </div>
+          <div class="quiz-question">2. Under the Fixed Capital System, recurring profit shares and partner salaries are credited to:</div>
           <div class="quiz-options">
             <button class="quiz-opt-btn" onclick="checkQuiz(2, 'A', false)">A) Partner's Capital Account</button>
             <button class="quiz-opt-btn" onclick="checkQuiz(2, 'B', true)">B) Partner's Current Account</button>
-            <button class="quiz-opt-btn" onclick="checkQuiz(2, 'C', false)">C) Profit & Loss Summary Account directly</button>
-            <button class="quiz-opt-btn" onclick="checkQuiz(2, 'D', false)">D) Retained Earnings Account</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(2, 'C', false)">C) Retained Earnings Account</button>
           </div>
           <div class="quiz-feedback" id="q2-fb">
-            <strong>Explanation:</strong> <em>(B) is correct.</em> In a fixed capital system, the Capital Account is kept strictly fixed at the permanent capital contributed. All day-to-day operational adjustments (salaries, interest, drawings, profit shares) pass through the <strong>Current Account</strong>.
-          </div>
-        </div>
-
-        <!-- Question 3 -->
-        <div class="quiz-container" id="q3">
-          <div class="quiz-question">
-            3. If the partnership agreement does NOT state how profits and losses are to be divided, the law requires that they be divided:
-          </div>
-          <div class="quiz-options">
-            <button class="quiz-opt-btn" onclick="checkQuiz(3, 'A', false)">A) In proportion to their capital balances</button>
-            <button class="quiz-opt-btn" onclick="checkQuiz(3, 'B', false)">B) In proportion to the time spent managing the business</button>
-            <button class="quiz-opt-btn" onclick="checkQuiz(3, 'C', true)">C) Equally among all partners (50:50)</button>
-            <button class="quiz-opt-btn" onclick="checkQuiz(3, 'D', false)">D) 70% to senior partner, 30% to junior partner</button>
-          </div>
-          <div class="quiz-feedback" id="q3-fb">
-            <strong>Explanation:</strong> <em>(C) is correct.</em> In the absence of an agreement, the legal rule mandates an equal sharing ratio regardless of capital contributions.
+            <strong>Explanation:</strong> <em>(B) is correct.</em> The Capital Account remains fixed at original investment; all operational additions pass through the Current Account.
           </div>
         </div>
       </article>
 
       <!-- ====================================================================
-           SEARCHABLE REFERENCE LIBRARY & FORMULA BANK
+           SEARCHABLE GLOSSARY & REFERENCE
            ==================================================================== -->
       <article id="m-reference" class="module-card">
-        <h2>📚 Searchable Reference Library & Formula Bank</h2>
-        <div class="module-meta">
-          <span>Official Course Terminology & Formulas</span>
+        <h2>📚 Searchable Reference & Formulas</h2>
+        <input type="text" id="lib-search" class="form-control no-print" placeholder="Type a term (e.g. Goodwill, Commission, Current Account)..." onkeyup="filterReference()" style="margin-bottom: 1rem;">
+
+        <div class="table-scroll-wrapper">
+          <span class="table-scroll-hint">Swipe ↔ to view columns</span>
+          <table class="accounting-table" id="glossary-table">
+            <thead><tr><th>Official Term</th><th>Definition & Practical Application</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>P&L Appropriation</strong></td>
+                <td>Ledger account used to allocate net income to partners via interest, salary, and profit shares.</td>
+              </tr>
+              <tr>
+                <td><strong>Fixed Capital System</strong></td>
+                <td>System maintaining two accounts per partner: Capital A/C (fixed) and Current A/C (operations).</td>
+              </tr>
+              <tr>
+                <td><strong>Fluctuating Capital</strong></td>
+                <td>System recording all partner investments, drawings, and profits directly in one Capital A/C.</td>
+              </tr>
+              <tr>
+                <td><strong>Bonus Method</strong></td>
+                <td>Accounting for dissolution where total capital remains equal to total contributions without goodwill.</td>
+              </tr>
+              <tr>
+                <td><strong>Treasury Stock</strong></td>
+                <td>Own stock repurchased by the corporation; classified as a contra-equity account (debit balance).</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <input type="text" id="lib-search" class="search-bar-input no-print" placeholder="Type an accounting term or formula (e.g. Goodwill, Commission, Current Account)..." onkeyup="filterReference()">
-
-        <h3>Official Accounting Terms</h3>
-        <table class="accounting-table" id="glossary-table">
-          <thead>
-            <tr>
-              <th style="width: 22%;">Official Term</th>
-              <th>Authoritative Definition</th>
-              <th>Simple Explanation & Application</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Profit and Loss Appropriation Account</strong></td>
-              <td>A temporary summary ledger account used by partnerships to distribute net profit among partners in the form of interest, salary, and profit shares.</td>
-              <td>A special holding account that takes the net profit from the income statement and divvies it up according to the partnership deed.</td>
-            </tr>
-            <tr>
-              <td><strong>Fixed Capital System</strong></td>
-              <td>An accounting method wherein partner capital accounts remain unchanged except for permanent capital injections or withdrawals.</td>
-              <td>You keep two accounts for each partner: Capital Account (for the permanent investment) and Current Account (for regular profits, drawings, and interest).</td>
-            </tr>
-            <tr>
-              <td><strong>Fluctuating Capital System</strong></td>
-              <td>An accounting system where all capital transactions, profits, salaries, and drawings are combined in a single partner Capital Account.</td>
-              <td>Only one capital account is used per partner, so its balance changes (fluctuates) continuously throughout the year.</td>
-            </tr>
-            <tr>
-              <td><strong>Bonus Method</strong></td>
-              <td>An accounting convention for partnership dissolution where total agreed capital equals total contributed capital, with any premium transferred between partner capital balances.</td>
-              <td>No artificial goodwill is recorded on the balance sheet; existing partners or new partners simply grant each other a "bonus" from their capital.</td>
-            </tr>
-            <tr>
-              <td><strong>Treasury Stock</strong></td>
-              <td>A corporation's own capital stock that has been legally issued, fully paid for, and later reacquired by the issuing company.</td>
-              <td>Shares the company buys back from investors. Recorded as a contra-equity account (debit balance) that reduces total shareholders' equity.</td>
-            </tr>
-            <tr>
-              <td><strong>Allowance for Doubtful Accounts</strong></td>
-              <td>A contra-asset valuation account associated with Accounts Receivable estimating uncollectible amounts.</td>
-              <td>Carried over into the new partnership books to show customer balances at full face value while displaying estimated net cash collectibility.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Formula Reference Bank</h3>
-        <table class="accounting-table" id="formula-table">
-          <thead>
-            <tr>
-              <th style="width: 25%;">Formula Title</th>
-              <th>Formula Expression</th>
-              <th>Conditions & Usage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Commission Before Charging</strong></td>
-              <td>$$\text{Commission} = \text{Net Profit} \times \text{Rate}$$</td>
-              <td>When commission agreement states "commission of X% on net profit before charging such commission".</td>
-            </tr>
-            <tr>
-              <td><strong>Commission After Own Commission</strong></td>
-              <td>$$\text{Commission} = \text{Base Profit} \times \frac{\text{Rate}}{100 + \text{Rate}}$$</td>
-              <td>When commission agreement specifies that commission is calculated after deducting the commission itself.</td>
-            </tr>
-            <tr>
-              <td><strong>Total Capital from Fraction</strong></td>
-              <td>$$\text{Total Capital} = \frac{\text{Partner Contribution}}{\text{Fractional Share}}$$</td>
-              <td>Used in formation when a partner contributes cash for an agreed fractional capital share (e.g. $250,000 / 0.25 = $1,000,000).</td>
-            </tr>
-            <tr>
-              <td><strong>Bonus to Old Partners</strong></td>
-              <td>$$\text{Bonus} = \text{New Contribution} - (\text{Total Agreed Capital} \times \% \text{ Interest})$$</td>
-              <td>Applied upon partner admission when new partner pays a premium to join an existing profitable firm.</td>
-            </tr>
-          </tbody>
-        </table>
       </article>
 
     </main>
   </div>
 
   <!-- ==========================================================================
-       JAVASCRIPT APP LOGIC
+       MOBILE TOUCH LOGIC & INTERACTION SCRIPTS
        ========================================================================== -->
   <script>
-    // Navigation active state handler
-    function activateNav(link) {
+    // Off-Canvas Drawer Navigation
+    function toggleDrawer() {
+      const sidebar = document.getElementById('app-sidebar');
+      const overlay = document.getElementById('drawer-overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+
+    function handleNavClick(link) {
       document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
       link.classList.add('active');
+      
+      // Auto-close drawer on mobile when link is tapped
+      if (window.innerWidth < 992) {
+        toggleDrawer();
+      }
     }
 
-    function jumpToModule(id) {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Step-by-Step Calculation Revealer
+    // Calculation Step-by-Step Revealer
     function revealCalcStep(stepId) {
       const step = document.getElementById(stepId);
       if (step) {
@@ -1782,15 +1280,15 @@
       }
     }
 
-    // Interactive Quiz Engine
-    function checkQuiz(qNum, selectedOpt, isCorrect) {
-      const fb = document.getElementById('q' + qNum + '-fb');
+    // Touch Quiz Engine
+    function checkQuiz(qNum, opt, isCorrect) {
       const container = document.getElementById('q' + qNum);
+      const fb = document.getElementById('q' + qNum + '-fb');
       const buttons = container.querySelectorAll('.quiz-opt-btn');
 
       buttons.forEach(btn => {
         btn.disabled = true;
-        if (btn.innerText.startsWith(selectedOpt)) {
+        if (btn.innerText.startsWith(opt)) {
           if (isCorrect) {
             btn.classList.add('correct');
           } else {
@@ -1798,11 +1296,10 @@
           }
         }
       });
-
       fb.style.display = 'block';
     }
 
-    // Interactive Journal Entry Validator
+    // Mobile Journal Entry Validator
     function validateJournalEntry() {
       const acc1 = document.getElementById('je-acc-1').value;
       const dr1 = parseFloat(document.getElementById('je-dr-1').value) || 0;
@@ -1825,7 +1322,7 @@
 
       if (totalDr !== totalCr) {
         fb.style.color = "var(--danger)";
-        fb.innerHTML = `❌ Debits ($${totalDr}) do not balance Credits ($${totalCr})! In double-entry accounting, Dr must equal Cr.`;
+        fb.innerHTML = `❌ Debits ($${totalDr}) do not equal Credits ($${totalCr})! In double-entry accounting, Dr must equal Cr.`;
         return;
       }
 
@@ -1834,22 +1331,16 @@
         fb.innerHTML = "✅ Perfect! Debit Cash $100,000 (increases Asset), Credit Partner Capital $100,000 (increases Equity).";
       } else {
         fb.style.color = "var(--warning)";
-        fb.innerHTML = "⚠️ Amounts balance, but check your account assignments! Cash received is an asset (Debit), Capital is owner's equity (Credit).";
+        fb.innerHTML = "⚠️ Amounts balance, but verify account selections! Cash is an Asset (Debit), Capital is Equity (Credit).";
       }
     }
 
-    // Searchable Library Filter
+    // Real-Time Search Filter
     function filterReference() {
       const query = document.getElementById('lib-search').value.toLowerCase();
-      const glossaryRows = document.querySelectorAll('#glossary-table tbody tr');
-      const formulaRows = document.querySelectorAll('#formula-table tbody tr');
+      const rows = document.querySelectorAll('#glossary-table tbody tr');
 
-      glossaryRows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
-
-      formulaRows.forEach(row => {
+      rows.forEach(row => {
         const text = row.innerText.toLowerCase();
         row.style.display = text.includes(query) ? '' : 'none';
       });
